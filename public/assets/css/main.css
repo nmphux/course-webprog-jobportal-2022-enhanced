@@ -1,0 +1,286 @@
+/* ==========================================================
+   main.css — Legacy styles (cleaned up)
+   Only styles still referenced by older view templates remain.
+   New styles should go in components.css or app.css.
+   ========================================================== */
+
+/* --- Reset helpers --- */
+ul,
+li {
+  list-style: none;
+}
+
+.title {
+  margin: 25px 0;
+  text-align: center;
+}
+.form_btn {
+  display: contents;
+  margin: 10px 0;
+}
+.infor {
+  display: contents;
+}
+.link_style {
+  margin-right: 600px;
+}
+.title_card {
+  padding: 0 5px;
+}
+.form-label {
+  font-weight: 500;
+}
+.form_month {
+  margin-left: 25px;
+}
+.message {
+  padding: 0 10px;
+  color: var(--danger);
+  height: 24px;
+}
+
+/* --- Layout helpers --- */
+.list-col {
+  display: flex;
+  flex-direction: column;
+}
+.list-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* --- Legacy job items --- */
+.ft-item {
+  background-color: var(--bg-card);
+  border-radius: 5px;
+  box-shadow: 1px 2px 5px var(--shadow-sm);
+  margin: 6px 0;
+  padding: 15px;
+  transition: box-shadow 0.2s;
+}
+.ft-item:hover {
+  background-color: var(--bg-card-hover);
+}
+
+.img-logo {
+  width: inherit;
+  height: inherit;
+  object-fit: contain;
+}
+.img-box {
+  width: 50px;
+  height: 50px;
+  border: 0.3px solid var(--border-light);
+  border-radius: 3px;
+  background-color: var(--primary-translucent);
+}
+.col-7 {
+  padding: 0 6px;
+}
+
+/* --- Legacy content area --- */
+.content {
+  background-color: var(--bg-card-hover);
+  box-shadow: 1px 1px 5px var(--shadow-sm);
+  border-radius: 3px;
+  width: 100%;
+  height: 50em;
+  margin: 8px 0;
+  padding: 24px;
+}
+.content .cpn-infor {
+  display: flex;
+  flex-direction: column;
+}
+.content .ctt-pst::before {
+  content: "Position: ";
+}
+.ptt-describe {
+  margin-right: 10px;
+  text-align: justify;
+}
+.content .cpn-foot {
+  border-bottom: 1px solid var(--border-light);
+  margin: 10px 0;
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.content .cpn-foot > div {
+  max-width: 86%;
+}
+.content .cpn-foot > div.hide-ellip {
+  max-width: 86%;
+}
+.content .cpn-foot div.img-box {
+  height: 50px;
+  width: 50px;
+  margin: 0;
+  margin-top: -21px;
+  border-color: transparent;
+}
+.content .cpn-foot .img-box > div {
+  width: 80%;
+  height: 80%;
+  margin: 18%;
+  object-fit: contain;
+}
+.content .cpn-foot div.img-box:hover {
+  background-color: var(--bg-surface);
+  border-radius: 50%;
+  border-color: transparent;
+  box-shadow: 1px 1px 2px var(--shadow-md);
+}
+.hide-ellip {
+  box-sizing: border-box;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap;
+}
+.content .cpn-foot span {
+  border-left: 1.5px solid var(--text-light);
+  padding-left: 10px;
+  color: var(--text-muted);
+}
+.content .img-box {
+  width: 100px;
+  height: 100px;
+  margin: 5px;
+}
+.content .poster-info {
+  border-left: 1px ridge var(--border);
+  width: 300px;
+  max-width: 150px;
+  min-width: 80px;
+}
+
+@media (min-width: 991px) {
+  .content .poster-info {
+    max-width: 200px;
+  }
+}
+@media (min-width: 768px) {
+  .content .list-spabet > .poster-info {
+    max-width: 150px;
+    min-width: 50px;
+  }
+}
+@media (max-width: 768px) {
+  .content .poster-info {
+    max-width: 80px;
+  }
+  .content .img-box {
+    width: 80px;
+    height: 80px;
+    margin: 5px;
+  }
+}
+
+.poster-info h3::before {
+  position: absolute;
+  content: "";
+  width: 3px;
+  height: 20px;
+  top: -1px;
+  left: -1px;
+  background: var(--primary);
+}
+.poster-info h3 {
+  padding-left: 10px;
+  margin-bottom: 20px;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  position: relative;
+  float: left;
+  font-weight: bold;
+}
+.poster-info span {
+  position: relative;
+  margin-bottom: 35px;
+  padding-left: 10px;
+  font-family: var(--font-sans);
+}
+.poster-info span::before {
+  position: absolute;
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 100%;
+  top: 8px;
+  left: -3px;
+  background: var(--primary-active);
+}
+.poster-info span a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.btn-primary .img-icon {
+  width: 20px;
+  height: 20px;
+  margin-top: -4px;
+}
+.slide {
+  background: var(--bg-card);
+}
+
+/* --- Legacy job list (CV) --- */
+.lists_cv {
+  font-weight: 500;
+}
+.lists_cv .img-box {
+  margin-left: -29px;
+  width: 55px;
+  height: 55px;
+}
+.lists_cv .hide-ellip {
+  flex: 1;
+  text-align: center;
+  padding: 10px 0px;
+}
+.lists_cv .hide-ellip h4 {
+  margin: 10px;
+  display: initial;
+}
+.list_cv {
+  font-weight: 400 !important;
+}
+.mb-3-list {
+  border-radius: 5px;
+}
+.mb-3-list:hover {
+  box-shadow:
+    0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+/* --- Responsive --- */
+@media only screen and (max-width: 1200px) {
+  .inner {
+    display: none;
+  }
+  .infor {
+    text-align: center !important;
+  }
+  .link_style {
+    margin-right: 0;
+  }
+}
+
+.tips li {
+  list-style: circle;
+}
+.nav-link button {
+  width: 100%;
+}
+
+.msg-not-find {
+  font-size: 24px;
+  text-align: center;
+  margin: 50px;
+}
+.msg-not-find a {
+  margin-left: 10px;
+  text-decoration: none;
+  color: var(--primary);
+}

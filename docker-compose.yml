@@ -1,0 +1,94 @@
+# ============================================================
+# JobHub — Docker Compose (Full XAMPP Replacement)
+# Services: Apache/PHP (app), MySQL (db), phpMyAdmin
+# Usage: docker-compose up -d
+# ============================================================
+
+version: "3.8"
+
+services:
+  # --- Apache + PHP (replaces XAMPP Apache) ---
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: jobhub-app
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+      - ./docker/apache.conf:/etc/apache2/sites-available/000-default.conf
+      - ./docker/php.ini:/usr/local/etc/php/conf.d/custom.ini
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_DATABASE=jobhub
+      - DB_USERNAME=jobhub_user
+      - DB_PASSWORD=jobhub_secret
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - jobhub-net
+    restart: unless-stopped
+
+  # --- MySQL Database (replaces XAMPP MySQL) ---
+  db:
+    image: mysql:8.0
+    container_name: jobhub-db
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root_secret
+      MYSQL_DATABASE: jobhub
+      MYSQL_USER: jobhub_user
+      MYSQL_PASSWORD: jobhub_secret
+    volumes:
+      - jobhub-db-data:/var/lib/mysql
+      - ./database.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-h",
+          "localhost",
+          "-u",
+          "root",
+          "-proot_secret",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - jobhub-net
+    restart: unless-stopped
+
+  # --- phpMyAdmin (replaces XAMPP phpMyAdmin) ---
+  phpmyadmin:
+    image: phpmyadmin:5.2
+    container_name: jobhub-pma
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: root_secret
+      UPLOAD_LIMIT: 64M
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - jobhub-net
+    restart: unless-stopped
+
+volumes:
+  jobhub-db-data:
+    driver: local
+
+networks:
+  jobhub-net:
+    driver: bridge

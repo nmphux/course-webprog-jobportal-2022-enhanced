@@ -1,0 +1,10 @@
+RewriteEngine On
+
+# Block direct access to sensitive directories and files
+RewriteRule ^config/ - [F,L]
+RewriteRule ^src/ - [F,L]
+RewriteRule ^database\.sql$ - [F,L]
+
+# Redirect all requests to the public directory (except those already in public/)
+RewriteCond %{REQUEST_URI} !/public/
+RewriteRule ^(.*)$ public/$1 [L]

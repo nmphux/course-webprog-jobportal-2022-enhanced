@@ -1,0 +1,125 @@
+/* ==========================================================
+   account.css — Settings / Account pages
+   ========================================================== */
+
+body > div.container {
+  margin-top: 100px;
+}
+
+.info-box {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  height: 200px;
+  padding: 50px 0;
+  text-align: center;
+  overflow: hidden;
+}
+.info-box span {
+  font-size: 30px;
+  color: var(--text);
+  font-weight: bold;
+}
+
+@media (max-width: 991px) {
+  .info-box {
+    display: none;
+  }
+}
+
+@media (min-width: 992px) {
+  .list-group {
+    margin-top: -1px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+}
+
+.boxinfo {
+  padding-top: 15px;
+  padding-bottom: 20px;
+  position: relative;
+}
+.boxinfo .title {
+  border-radius: 5px 5px 0 0;
+  background: var(--bg-surface);
+  text-transform: uppercase;
+  font-size: 16px;
+  color: var(--text-muted);
+  margin: 0 0 15px;
+  padding: 14px 0 10px 20px;
+}
+.accinfo {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 10px;
+}
+.accinfo td {
+  border-bottom: 1px solid var(--border);
+  padding: 8px;
+}
+.accinfo td:first-child {
+  font-size: 14px;
+  width: 25%;
+}
+.accinfo .form-control {
+  width: 50% !important;
+}
+.accinfo .note {
+  font-size: 10px;
+  cursor: default;
+}
+.changepwd .btn-submit {
+  margin-left: 25%;
+  padding-left: 8px;
+}
+.boxinfo form .text-error {
+  padding: 3px 0 0px 0px;
+  font-size: 12px;
+  font-weight: bold;
+  color: var(--danger);
+  background: none;
+  border-radius: 0px;
+  border: none;
+  margin-bottom: 0px;
+}
+
+/* Settings tabs */
+#div-right > div {
+  display: none;
+  -webkit-animation: fadeEffect 0.5s;
+  animation: fadeEffect 0.5s;
+}
+#div-right > div.active {
+  display: block;
+}
+
+@-webkit-keyframes fadeEffect {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeEffect {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.list-group-item:hover {
+  text-decoration: none;
+  color: var(--primary-hover);
+  opacity: 0.8;
+}
+.list-group-item.active {
+  background-color: var(--primary-translucent);
+  color: var(--primary);
+  border: inherit;
+  border-left: 4px solid var(--primary);
+}

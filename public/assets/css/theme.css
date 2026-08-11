@@ -1,0 +1,302 @@
+/* ==========================================================
+   Design Tokens — 4 Harmonized Themes
+   ==========================================================
+   Each theme has FULLY MATCHED status colors harmonized
+   with its primary palette:
+   - Dawn: Pastel warmth
+   - Noon: Classic corporate emerald/amber/red/sky
+   - Dusk: Twilight amber/purple
+   - Night: Neon green/yellow/red/purple
+   ========================================================== */
+
+/* --- Base Shared Tokens --- */
+:root {
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+  --font-sans:
+    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow: 400ms ease;
+  --transition-bounce: 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* --- NOON — Bright Midday (Classic Corporate) --- */
+[data-theme="noon"] {
+  --bg: #f0f4ff;
+  --bg-surface: #e8eef8;
+  --bg-surface-alt: #dce6f5;
+  --bg-card: #ffffff;
+  --bg-card-hover: rgba(37, 99, 235, 0.04);
+
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-active: #1e40af;
+  --primary-translucent: rgba(37, 99, 235, 0.1);
+  --primary-focus-shadow: rgba(37, 99, 235, 0.25);
+
+  --accent: #0ea5e9;
+  --accent-hover: #0284c7;
+
+  --text: #0f172a;
+  --text-muted: #475569;
+  --text-light: #94a3b8;
+
+  --border: #d1d9e6;
+  --border-light: #e2e8f0;
+  --input-bg: #ffffff;
+  --navbar-bg: rgba(240, 244, 255, 0.88);
+  --footer-bg: #0f172a;
+
+  --shadow-sm: rgba(15, 23, 42, 0.05);
+  --shadow-md: rgba(15, 23, 42, 0.1);
+  --shadow-lg: rgba(15, 23, 42, 0.15);
+
+  /* Harmonized status colors — classic corporate */
+  --success: #10b981;
+  --success-bg: rgba(16, 185, 129, 0.1);
+  --warning: #f59e0b;
+  --warning-bg: rgba(245, 158, 11, 0.1);
+  --danger: #ef4444;
+  --danger-bg: rgba(239, 68, 68, 0.1);
+  --info: #0ea5e9;
+  --info-bg: rgba(14, 165, 233, 0.1);
+
+  /* Gradients */
+  --gradient-hero: linear-gradient(
+    135deg,
+    #dbeafe 0%,
+    #eff6ff 30%,
+    #f8fafc 70%,
+    #e0e7ff 100%
+  );
+  --gradient-surface: linear-gradient(180deg, #f0f4ff 0%, #f8fafc 100%);
+  --gradient-accent: linear-gradient(135deg, #2563eb, #0ea5e9);
+  --gradient-card: linear-gradient(135deg, #ffffff, #f8faff);
+  --gradient-btn: linear-gradient(135deg, #2563eb, #1d4ed8);
+  --gradient-glow: radial-gradient(
+    ellipse at 50% 0%,
+    rgba(37, 99, 235, 0.15) 0%,
+    transparent 70%
+  );
+
+  --glow-primary: 0 0 20px rgba(37, 99, 235, 0.15);
+  --glow-card: 0 4px 24px rgba(37, 99, 235, 0.08);
+  --glow-success: 0 0 12px rgba(16, 185, 129, 0.2);
+  --glow-danger: 0 0 12px rgba(239, 68, 68, 0.2);
+  --glow-warning: 0 0 12px rgba(245, 158, 11, 0.2);
+}
+
+/* --- DAWN — Sunrise Warmth (Pastel Harmony) --- */
+[data-theme="dawn"] {
+  --bg: #fff5eb;
+  --bg-surface: #ffede0;
+  --bg-surface-alt: #ffe4d0;
+  --bg-card: #ffffff;
+  --bg-card-hover: rgba(234, 88, 12, 0.04);
+
+  --primary: #ea580c;
+  --primary-hover: #c2410c;
+  --primary-active: #9a3412;
+  --primary-translucent: rgba(234, 88, 12, 0.1);
+  --primary-focus-shadow: rgba(234, 88, 12, 0.25);
+
+  --accent: #f43f5e;
+  --accent-hover: #e11d48;
+
+  --text: #1c1917;
+  --text-muted: #78716c;
+  --text-light: #a8a29e;
+
+  --border: #e7e0da;
+  --border-light: #f0eae4;
+  --input-bg: #ffffff;
+  --navbar-bg: rgba(255, 245, 235, 0.88);
+  --footer-bg: #292524;
+
+  --shadow-sm: rgba(120, 53, 15, 0.05);
+  --shadow-md: rgba(120, 53, 15, 0.1);
+  --shadow-lg: rgba(120, 53, 15, 0.15);
+
+  /* Harmonized pastel status colors */
+  --success: #86efac;
+  --success-bg: rgba(134, 239, 172, 0.2);
+  --warning: #fcd34d;
+  --warning-bg: rgba(252, 211, 77, 0.2);
+  --danger: #fca5a5;
+  --danger-bg: rgba(252, 165, 165, 0.2);
+  --info: #fda4af;
+  --info-bg: rgba(253, 164, 175, 0.2);
+
+  /* Gradients */
+  --gradient-hero: linear-gradient(
+    135deg,
+    #ffedd5 0%,
+    #fff7ed 30%,
+    #fef2f2 60%,
+    #ffe4e6 100%
+  );
+  --gradient-surface: linear-gradient(180deg, #fff5eb 0%, #fff7ed 100%);
+  --gradient-accent: linear-gradient(135deg, #ea580c, #f43f5e);
+  --gradient-card: linear-gradient(135deg, #ffffff, #fffaf5);
+  --gradient-btn: linear-gradient(135deg, #ea580c, #c2410c);
+  --gradient-glow: radial-gradient(
+    ellipse at 50% 0%,
+    rgba(234, 88, 12, 0.12) 0%,
+    transparent 70%
+  );
+
+  --glow-primary: 0 0 20px rgba(234, 88, 12, 0.15);
+  --glow-card: 0 4px 24px rgba(234, 88, 12, 0.08);
+  --glow-success: 0 0 12px rgba(134, 239, 172, 0.3);
+  --glow-danger: 0 0 12px rgba(252, 165, 165, 0.3);
+  --glow-warning: 0 0 12px rgba(252, 211, 77, 0.3);
+}
+
+/* --- DUSK — Twilight Atmosphere (Amber + Purple) --- */
+[data-theme="dusk"] {
+  --bg: #1a103c;
+  --bg-surface: #2d1b69;
+  --bg-surface-alt: #231458;
+  --bg-card: #2d1f6e;
+  --bg-card-hover: rgba(217, 119, 6, 0.08);
+
+  --primary: #f59e0b;
+  --primary-hover: #d97706;
+  --primary-active: #b45309;
+  --primary-translucent: rgba(245, 158, 11, 0.15);
+  --primary-focus-shadow: rgba(245, 158, 11, 0.3);
+
+  --accent: #c084fc;
+  --accent-hover: #a855f7;
+
+  --text: #ede9fe;
+  --text-muted: #c4b5fd;
+  --text-light: #8b5cf6;
+
+  --border: #4c1d95;
+  --border-light: #3b1673;
+  --input-bg: rgba(45, 31, 110, 0.9);
+  --navbar-bg: rgba(26, 16, 60, 0.92);
+  --footer-bg: #0d0826;
+
+  --shadow-sm: rgba(0, 0, 0, 0.2);
+  --shadow-md: rgba(0, 0, 0, 0.35);
+  --shadow-lg: rgba(0, 0, 0, 0.5);
+
+  /* Harmonized twilight status colors */
+  --success: #f59e0b;
+  --success-bg: rgba(245, 158, 11, 0.12);
+  --warning: #fbbf24;
+  --warning-bg: rgba(251, 191, 36, 0.12);
+  --danger: #fb7185;
+  --danger-bg: rgba(251, 113, 133, 0.12);
+  --info: #c084fc;
+  --info-bg: rgba(192, 132, 252, 0.12);
+
+  /* Gradients */
+  --gradient-hero: linear-gradient(
+    135deg,
+    #1a103c 0%,
+    #2d1b69 25%,
+    #4c1d95 45%,
+    #7c3aed 65%,
+    #9333ea 80%,
+    #d97706 100%
+  );
+  --gradient-surface: linear-gradient(180deg, #1a103c 0%, #2d1b69 100%);
+  --gradient-accent: linear-gradient(135deg, #f59e0b, #c084fc);
+  --gradient-card: linear-gradient(135deg, #2d1f6e, #352580);
+  --gradient-btn: linear-gradient(135deg, #f59e0b, #d97706);
+  --gradient-glow: radial-gradient(
+    ellipse at 50% 0%,
+    rgba(245, 158, 11, 0.2) 0%,
+    rgba(192, 132, 252, 0.1) 40%,
+    transparent 70%
+  );
+
+  --glow-primary: 0 0 24px rgba(245, 158, 11, 0.2);
+  --glow-card: 0 4px 24px rgba(192, 132, 252, 0.12);
+  --glow-success: 0 0 12px rgba(245, 158, 11, 0.3);
+  --glow-danger: 0 0 12px rgba(251, 113, 133, 0.3);
+  --glow-warning: 0 0 12px rgba(251, 191, 36, 0.3);
+}
+
+/* --- NIGHT — Starry Midnight (Neon Cyber) --- */
+[data-theme="night"] {
+  --bg: #0b1121;
+  --bg-surface: #131c33;
+  --bg-surface-alt: #0f172a;
+  --bg-card: #1a2745;
+  --bg-card-hover: rgba(56, 189, 248, 0.05);
+
+  --primary: #38bdf8;
+  --primary-hover: #0ea5e9;
+  --primary-active: #0284c7;
+  --primary-translucent: rgba(56, 189, 248, 0.12);
+  --primary-focus-shadow: rgba(56, 189, 248, 0.25);
+
+  --accent: #a78bfa;
+  --accent-hover: #8b5cf6;
+
+  --text: #e2e8f0;
+  --text-muted: #94a3b8;
+  --text-light: #475569;
+
+  --border: #1e3a5f;
+  --border-light: #162d4a;
+  --input-bg: rgba(26, 39, 69, 0.9);
+  --navbar-bg: rgba(11, 17, 33, 0.93);
+  --footer-bg: #050a14;
+
+  --shadow-sm: rgba(0, 0, 0, 0.2);
+  --shadow-md: rgba(0, 0, 0, 0.35);
+  --shadow-lg: rgba(0, 0, 0, 0.5);
+
+  /* Harmonized neon status colors */
+  --success: #34d399;
+  --success-bg: rgba(52, 211, 153, 0.12);
+  --warning: #fbbf24;
+  --warning-bg: rgba(251, 191, 36, 0.12);
+  --danger: #fb7185;
+  --danger-bg: rgba(251, 113, 133, 0.12);
+  --info: #a78bfa;
+  --info-bg: rgba(167, 139, 250, 0.12);
+
+  /* Gradients */
+  --gradient-hero: linear-gradient(
+    135deg,
+    #050a14 0%,
+    #0b1121 30%,
+    #131c33 60%,
+    #1a2745 100%
+  );
+  --gradient-surface: linear-gradient(180deg, #0b1121 0%, #131c33 100%);
+  --gradient-accent: linear-gradient(135deg, #38bdf8, #a78bfa);
+  --gradient-card: linear-gradient(135deg, #1a2745, #1f2f52);
+  --gradient-btn: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  --gradient-glow: radial-gradient(
+    ellipse at 50% 0%,
+    rgba(56, 189, 248, 0.1) 0%,
+    rgba(167, 139, 250, 0.05) 40%,
+    transparent 70%
+  );
+
+  --glow-primary: 0 0 20px rgba(56, 189, 248, 0.15);
+  --glow-card: 0 4px 24px rgba(56, 189, 248, 0.08);
+  --glow-success: 0 0 12px rgba(52, 211, 153, 0.25);
+  --glow-danger: 0 0 12px rgba(251, 113, 133, 0.25);
+  --glow-warning: 0 0 12px rgba(251, 191, 36, 0.25);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  transition:
+    background var(--transition-normal),
+    color var(--transition-normal);
+}

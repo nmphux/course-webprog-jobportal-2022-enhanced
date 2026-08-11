@@ -1,0 +1,130 @@
+/* ==========================================================
+   homepage.css — Legacy homepage styles (carousel etc.)
+   New hero styles are in components.css (hero section).
+   ========================================================== */
+
+/* --- Carousel (Company logos) --- */
+.carousel-item {
+  transition: 0.3s;
+}
+
+@media (min-width: 576px) {
+  .carousel-item {
+    box-sizing: border-box;
+    height: 293px;
+  }
+  /* show 2 items */
+  .carousel-inner .active + .carousel-item {
+    display: block;
+  }
+  .carousel-inner
+    .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left),
+  .carousel-inner
+    .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left)
+    + .carousel-item {
+    transition: none;
+  }
+  .carousel-inner .carousel-item-next {
+    position: relative;
+    transform: translate3d(0, 0, 0);
+  }
+  .active.carousel-item-left + .carousel-item-next.carousel-item-left,
+  .carousel-item-next.carousel-item-left + .carousel-item,
+  .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item {
+    position: relative;
+    transform: translate3d(-100%, 0, 0);
+    visibility: visible;
+  }
+  .carousel-inner .carousel-item-prev.carousel-item-right {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    display: block;
+    visibility: visible;
+  }
+  .active.carousel-item-right + .carousel-item-prev.carousel-item-right,
+  .carousel-item-prev.carousel-item-right + .carousel-item,
+  .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item {
+    position: relative;
+    transform: translate3d(100%, 0, 0);
+    visibility: visible;
+    display: block;
+  }
+}
+
+@media (min-width: 768px) {
+  .carousel-item {
+    box-sizing: border-box;
+    height: 140px;
+  }
+  .carousel-inner .active + .carousel-item + .carousel-item {
+    display: block;
+  }
+  .carousel-inner
+    .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left)
+    + .carousel-item
+    + .carousel-item {
+    transition: none;
+  }
+  .carousel-inner .carousel-item-next {
+    position: relative;
+    transform: translate3d(0, 0, 0);
+  }
+  .carousel-item-next.carousel-item-left
+    + .carousel-item
+    + .carousel-item
+    + .carousel-item {
+    position: relative;
+    transform: translate3d(-100%, 0, 0);
+    visibility: visible;
+  }
+  .carousel-item-prev.carousel-item-right
+    + .carousel-item
+    + .carousel-item
+    + .carousel-item {
+    position: relative;
+    transform: translate3d(100%, 0, 0);
+    visibility: visible;
+    display: block;
+  }
+}
+
+@media (min-width: 991px) {
+  .carousel-item {
+    box-sizing: border-box;
+    height: 129px;
+  }
+}
+
+@media (max-width: 576px) {
+  .carousel-inner .carousel-item {
+    height: 290px;
+    width: 290px;
+  }
+}
+
+.carousel-inner .carousel-item img {
+  width: inherit;
+  height: inherit;
+  object-fit: contain;
+}
+
+.carousel-control-next:hover,
+.carousel-control-prev:hover {
+  filter: invert(30%) sepia(90%) saturate(1500%) hue-rotate(210deg)
+    brightness(95%) contrast(95%);
+  opacity: 0.6;
+}
+
+/* --- Other legacy --- */
+.tips {
+  display: none;
+}
+.tips#tip-1 {
+  display: block;
+}
+.list-row-spabet {
+  display: flex;
+  justify-content: space-between;
+}
