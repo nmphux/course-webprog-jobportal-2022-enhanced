@@ -72,7 +72,7 @@ Docker runs Apache + PHP 8.2, MySQL 8.0, and phpMyAdmin in isolated containers.
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/your-username/jobhub.git
+git clone https://github.com/nmphux/course-webprog-jobportal-2022-enhanced.git jobhub
 cd jobhub
 
 # 2. Start all services
