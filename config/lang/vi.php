@@ -29,7 +29,7 @@ return [
     'auth.register_btn'      => 'Đăng ký',
     'auth.no_account'        => 'Chưa có tài khoản?',
     'auth.have_account'      => 'Đã có tài khoản?',
-    'auth.login_success'     => 'Chào mừng trở lại!',
+    'auth.login_success'     => 'Chào mừng %s trở lại!',
     'auth.register_success'  => 'Tạo tài khoản thành công. Vui lòng đăng nhập.',
     'auth.logout_success'    => 'Bạn đã đăng xuất.',
     'auth.invalid_credentials'=> 'Email hoặc mật khẩu không đúng.',

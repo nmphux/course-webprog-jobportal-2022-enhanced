@@ -22,7 +22,7 @@ services:
     environment:
       - DB_HOST=db
       - DB_PORT=3306
-      - DB_DATABASE=jobhub
+      - DB_DATABASE=job_portal_db
       - DB_USERNAME=jobhub_user
       - DB_PASSWORD=jobhub_secret
     depends_on:
@@ -40,12 +40,12 @@ services:
       - "3307:3306"
     environment:
       MYSQL_ROOT_PASSWORD: root_secret
-      MYSQL_DATABASE: jobhub
+      MYSQL_DATABASE: job_portal_db
       MYSQL_USER: jobhub_user
       MYSQL_PASSWORD: jobhub_secret
     volumes:
       - jobhub-db-data:/var/lib/mysql
-      - ./database.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./config/database.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
       test:
         [

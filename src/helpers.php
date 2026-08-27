@@ -36,7 +36,13 @@ function __(string $key, array $replacements = []): string
     static $translations = null;
     static $loadedLocale = null;
 
-    $locale = $_SESSION['locale'] ?? 'en';
+    $locale = $_SESSION['locale']
+        ?? $_COOKIE['locale']
+        ?? 'en';
+
+    $locale = in_array($locale, ['en', 'vi'], true)
+        ? $locale
+        : 'en';
 
     if ($translations === null || $loadedLocale !== $locale) {
         $file = BASE_PATH . '/config/lang/' . $locale . '.php';

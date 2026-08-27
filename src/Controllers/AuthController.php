@@ -28,7 +28,7 @@ class AuthController extends Controller
         $result = $authService->login($email, $password);
 
         if ($result['success']) {
-            $this->flash('success', __('auth.login_success'));
+            $this->flash('success', __('auth.login_success', [$_SESSION['user_name']]));
             $this->redirect('/');
             return;
         }

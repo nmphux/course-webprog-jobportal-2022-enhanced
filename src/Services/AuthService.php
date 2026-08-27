@@ -84,17 +84,57 @@ class AuthService
         $_SESSION['user_type']   = $user['user_type'];
         $_SESSION['user_avatar'] = $user['avatar'];
 
-        if (!empty($user['language'])) {
-            $_SESSION['locale'] = $user['language'];
+        $locale = $user['language'] ?? 'en';
+
+        if (!in_array($locale, ['en', 'vi'], true)) {
+            $locale = 'en';
         }
+
+        $_SESSION['locale'] = $locale;
+
+        setcookie(
+            'locale',
+            $locale,
+            [
+                'expires'  => time() + (365 * 24 * 60 * 60),
+                'path'     => '/',
+                'secure'   => !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off',
+                'httponly' => false,
+                'samesite' => 'Lax',
+            ]
+        );
 
         return ['success' => true, 'user' => $user];
     }
 
     public function logout(): void
     {
-        session_unset();
-        session_destroy();
+        $locale = $_SESSION['locale'] ?? $_COOKIE['locale'] ?? 'en';
+
+        if (!in_array($locale, ['en', 'vi'], true)) {
+            $locale = 'en';
+        }
+        unset(
+            $_SESSION['user_id'],
+            $_SESSION['user_name'],
+            $_SESSION['user_type'],
+            $_SESSION['user_avatar']
+        );
+        session_regenerate_id(true);
+        $_SESSION['locale'] = $locale;
+
+        // Keep the language
+        setcookie(
+            'locale',
+            $locale,
+            [
+                'expires'  => time() + (365 * 24 * 60 * 60),
+                'path'     => '/',
+                'secure'   => !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off',
+                'httponly' => false,
+                'samesite' => 'Lax',
+            ]
+        );
     }
 
     public function changePassword(int $userId, string $currentPassword, string $newPassword, string $confirmPassword): array

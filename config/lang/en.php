@@ -29,7 +29,7 @@ return [
     'auth.register_btn'      => 'Register',
     'auth.no_account'        => "Don't have an account?",
     'auth.have_account'      => 'Already have an account?',
-    'auth.login_success'     => 'Welcome back!',
+    'auth.login_success'     => 'Welcome back, %s!',
     'auth.register_success'  => 'Account created successfully. Please log in.',
     'auth.logout_success'    => 'You have been logged out.',
     'auth.invalid_credentials'=> 'Invalid email or password.',

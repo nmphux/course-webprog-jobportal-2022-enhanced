@@ -46,6 +46,11 @@ RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 775 /var/www/html/public/uploads \
     && chmod -R 775 /var/www/html/tests
 
+RUN find /var/www/html -type d -exec chmod 755 {} + \
+    && find /var/www/html -type f -exec chmod 644 {} +
+
+RUN chmod 640 /var/www/html/config/*.php
+
 # Configure Apache virtual host
 COPY docker/apache.conf /etc/apache2/sites-available/000-default.conf
 

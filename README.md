@@ -114,7 +114,12 @@ docker exec jobhub-app php tests/TestRunner.php
 docker-compose down
 
 # Full reset (delete database volume + rebuild)
-docker-compose down -v && docker-compose up -d --build
+docker compose down -v
+docker compose up -d --build
+
+# If there's an 'Access denied for user' error
+docker compose exec -T db mysql -u root -proot_secret -e "DROP DATABASE IF EXISTS job_portal_db; CREATE DATABASE job_portal_db; GRANT ALL PRIVILEGES ON job_portal_db.* TO 'jobhub_user'@'%'; FLUSH PRIVILEGES;"
+docker compose exec app php -r '$db = require "/var/www/html/config/database.php"; print_r($db->query("SHOW TABLES")->fetchAll(PDO::FETCH_COLUMN));'
 ```
 
 ### 🪟 Option 2: XAMPP (Legacy)
