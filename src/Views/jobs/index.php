@@ -106,11 +106,9 @@ $total_pages = $jobs['total_pages'] ?? 1;
             </div>
 
             <?php if (!empty($jobs_data)): ?>
-                <div class="row">
+                <div class="job-grid">
                     <?php foreach ($jobs_data as $job): ?>
-                        <div class="col-md-6" style="margin-bottom: 1rem;">
-                            <?php include __DIR__ . '/../partials/job-card.php'; ?>
-                        </div>
+                        <?php include __DIR__ . '/../partials/job-card.php'; ?>
                     <?php endforeach; ?>
                 </div>
 

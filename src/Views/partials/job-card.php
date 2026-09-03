@@ -24,7 +24,7 @@ if (is_array($raw_skills)) {
 $max_skills = 4;
 $extra_count = max(0, count($skills_list) - $max_skills);
 ?>
-<div class="job-card card card-hover fade-in-up">
+<div class="job-card card card-hover fade-in-up" onclick="window.location.href='<?= job_url($job) ?>'" style="cursor: pointer;">
     <div class="card-body">
         <div style="display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem;">
             <?php if (!empty($job['company_logo'])): ?>
@@ -38,7 +38,7 @@ $extra_count = max(0, count($skills_list) - $max_skills);
             <?php endif; ?>
             <div style="min-width: 0; flex: 1;">
                 <h3 style="margin: 0 0 0.25rem; font-size: 1rem; font-weight: 600; line-height: 1.3;">
-                    <a href="<?= base_url('jobs/' . (int)$job['id']) ?>" style="text-decoration: none; color: inherit;">
+                    <a href="<?= job_url($job) ?>" class="job-card-title-link" style="text-decoration: none; color: inherit;">
                         <?= e($job['title'] ?? '') ?>
                     </a>
                 </h3>
@@ -46,6 +46,7 @@ $extra_count = max(0, count($skills_list) - $max_skills);
                     <?= e($job['company_name'] ?? '') ?>
                 </p>
             </div>
+        </div>
 
         <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; font-size: 0.8125rem; color: var(--text-muted); margin-bottom: 0.75rem;">
             <?php if (!empty($job['company_city'])): ?>

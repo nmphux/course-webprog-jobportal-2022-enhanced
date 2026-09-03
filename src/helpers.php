@@ -20,6 +20,21 @@ function upload_url(string $path): string
     return BASE_URL . '/uploads/' . ltrim($path, '/');
 }
 
+function slugify(string $text): string
+{
+    $text = mb_strtolower($text, 'UTF-8');
+    $text = preg_replace('/[^a-z0-9\s-]/u', '', $text);
+    $text = preg_replace('/[\s-]+/', '-', $text);
+    return trim($text, '-');
+}
+
+function job_url(array $job): string
+{
+    $slug = slugify($job['title'] ?? '');
+    $id = (int)($job['id'] ?? 0);
+    return base_url('jobs/' . $slug . '-' . $id);
+}
+
 function redirect(string $path): void
 {
     header('Location: ' . base_url($path));

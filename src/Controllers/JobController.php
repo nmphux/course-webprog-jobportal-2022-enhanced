@@ -73,16 +73,26 @@ class JobController extends Controller
     public function apply(array $params): void
     {
         $appModel         = $this->container->get(Models\Application::class);
+        $jobModel         = $this->container->get(Models\Job::class);
         $fileUploadService = $this->container->get(Services\FileUploadService::class);
 
         $jobId  = (int) $params['id'];
         $user   = $this->user();
         $userId = $user['user_id'];
 
+        $job = $jobModel->findById($jobId);
+        if (!$job) {
+            http_response_code(404);
+            $this->view('errors/404');
+            return;
+        }
+
+        $jobUrl = '/' . ltrim(job_url($job), '/');
+
         // Prevent duplicate applications
         if ($appModel->exists($userId, $jobId)) {
             $this->flash('error', __('jobs.already_applied'));
-            $this->redirect('/jobs/' . $jobId);
+            $this->redirect($jobUrl);
             return;
         }
 
@@ -98,7 +108,7 @@ class JobController extends Controller
 
             if (!$uploadResult['success']) {
                 $this->flash('error', $uploadResult['error']);
-                $this->redirect('/jobs/' . $jobId);
+                $this->redirect($jobUrl);
                 return;
             }
 
@@ -113,6 +123,6 @@ class JobController extends Controller
         ]);
 
         $this->flash('success', __('jobs.apply_success'));
-        $this->redirect('/jobs/' . $jobId);
+        $this->redirect($jobUrl);
     }
 }

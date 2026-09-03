@@ -3,16 +3,22 @@
  * Test Bootstrap — sets up autoloading and test database
  */
 
-define('BASE_PATH', dirname(__DIR__));
-define('TEST_MODE', true);
+if (!defined('BASE_PATH')) {
+    define('BASE_PATH', dirname(__DIR__));
+}
 
-// Autoloader (mirrors public/index.php)
+if (!defined('TEST_MODE')) {
+    define('TEST_MODE', true);
+}
+
+// Autoloader (mirrors public/index.php + tests namespace)
 spl_autoload_register(function (string $class) {
     $map = [
-        'Core\\'      => '/src/Core/',
-        'Models\\'    => '/src/Models/',
-        'Services\\'  => '/src/Services/',
+        'Core\\'        => '/src/Core/',
+        'Models\\'      => '/src/Models/',
+        'Services\\'    => '/src/Services/',
         'Controllers\\' => '/src/Controllers/',
+        'Tests\\'       => '/tests/', // Bổ sung mapping cho namespace Tests
     ];
 
     foreach ($map as $prefix => $dir) {
@@ -28,4 +34,6 @@ spl_autoload_register(function (string $class) {
 });
 
 // Load helpers
-require_once BASE_PATH . '/src/helpers.php';
+if (file_exists(BASE_PATH . '/src/helpers.php')) {
+    require_once BASE_PATH . '/src/helpers.php';
+}

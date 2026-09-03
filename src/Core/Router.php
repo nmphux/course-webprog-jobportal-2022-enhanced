@@ -23,11 +23,11 @@ class Router
             preg_match_all('#\{(\w+)\}#', $pattern, $paramMatches);
             $paramNames = $paramMatches[1];
 
-            // Build regex: {id} -> (\d+), {slug} -> ([a-zA-Z0-9_-]+)
+            // Build regex: {id} -> (\d+), {slug} -> ([a-z0-9-]+)
             $regex = preg_replace_callback('#\{(\w+)\}#', function ($m) {
                 $name = $m[1];
                 if ($name === 'slug') {
-                    return '([a-zA-Z0-9_-]+)';
+                    return '([a-z0-9-]+)';
                 }
                 // Default: {id} and any other numeric parameter
                 return '(\d+)';

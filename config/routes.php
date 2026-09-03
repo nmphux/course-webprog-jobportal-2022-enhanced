@@ -13,6 +13,7 @@ return [
 
     // Jobs (public browsing)
     'GET /jobs'                    => ['JobController', 'index'],
+    'GET /jobs/{slug}-{id}'        => ['JobController', 'detail'],
     'GET /jobs/{id}'               => ['JobController', 'detail'],
     'POST /jobs/{id}/apply'        => ['JobController', 'apply', ['auth:candidate']],
 
@@ -21,6 +22,7 @@ return [
 
     // Bookmarks
     'GET /bookmarks'               => ['BookmarkController', 'index', ['auth:candidate']],
+    'POST /jobs/{id}/bookmark'     => ['BookmarkController', 'toggle', ['auth']],
     'GET /jobs/{id}/bookmark'      => ['BookmarkController', 'toggle', ['auth']],
     'GET /bookmarks/{id}/delete'   => ['BookmarkController', 'delete', ['auth']],
 

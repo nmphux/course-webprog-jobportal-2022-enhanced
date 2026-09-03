@@ -26,7 +26,7 @@
                         <?php foreach ($jobs as $job): ?>
                             <tr>
                                 <td>
-                                    <a href="<?= base_url('jobs/' . (int)$job['id']) ?>" style="font-weight: 500; text-decoration: none;">
+                                    <a href="<?= job_url($job) ?>" style="font-weight: 500; text-decoration: none;">
                                         <?= e($job['title'] ?? '') ?>
                                     </a>
                                 </td>
