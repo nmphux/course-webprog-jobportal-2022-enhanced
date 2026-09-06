@@ -23,7 +23,7 @@
                                     <?php endif; ?>
                                     <div style="min-width: 0; flex: 1;">
                                         <h3 style="margin: 0 0 0.25rem; font-size: 1rem; font-weight: 600;">
-                                            <a href="<?= base_url('jobs/' . (int)$bm['id']) ?>" style="text-decoration: none; color: inherit;">
+                                            <a href="<?= base_url('jobs/' . (int)$bm['id']) ?>" class="job-title" style="text-decoration: none;">
                                                 <?= e($bm['title'] ?? '') ?>
                                             </a>
                                         </h3>

@@ -38,7 +38,7 @@ $extra_count = max(0, count($skills_list) - $max_skills);
             <?php endif; ?>
             <div style="min-width: 0; flex: 1;">
                 <h3 style="margin: 0 0 0.25rem; font-size: 1rem; font-weight: 600; line-height: 1.3;">
-                    <a href="<?= job_url($job) ?>" class="job-card-title-link" style="text-decoration: none; color: inherit;">
+                    <a href="<?= job_url($job) ?>" class="job-title" style="text-decoration: none;">
                         <?= e($job['title'] ?? '') ?>
                     </a>
                 </h3>

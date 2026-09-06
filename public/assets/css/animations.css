@@ -6,7 +6,9 @@
 .fade-in-up {
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
 }
 
 .fade-in-up.visible {
@@ -15,15 +17,27 @@
 }
 
 /* Staggered children */
-.fade-in-up:nth-child(2) { transition-delay: 0.1s; }
-.fade-in-up:nth-child(3) { transition-delay: 0.2s; }
-.fade-in-up:nth-child(4) { transition-delay: 0.3s; }
-.fade-in-up:nth-child(5) { transition-delay: 0.4s; }
-.fade-in-up:nth-child(6) { transition-delay: 0.5s; }
+.fade-in-up:nth-child(2) {
+  transition-delay: 0.1s;
+}
+.fade-in-up:nth-child(3) {
+  transition-delay: 0.2s;
+}
+.fade-in-up:nth-child(4) {
+  transition-delay: 0.3s;
+}
+.fade-in-up:nth-child(5) {
+  transition-delay: 0.4s;
+}
+.fade-in-up:nth-child(6) {
+  transition-delay: 0.5s;
+}
 
 /* --- Card Hover Lift --- */
 .card-hover {
-  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  transition:
+    transform var(--transition-normal),
+    box-shadow var(--transition-fast);
 }
 
 .card-hover:hover {
@@ -38,19 +52,25 @@
 }
 
 .btn-ripple::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
   pointer-events: none;
-  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.3) 10%, transparent 10.01%);
+  background-image: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.3) 10%,
+    transparent 10.01%
+  );
   background-repeat: no-repeat;
   background-position: 50%;
   transform: scale(10, 10);
   opacity: 0;
-  transition: transform 0.4s, opacity 0.8s;
+  transition:
+    transform 0.4s,
+    opacity 0.8s;
 }
 
 .btn-ripple:active::after {
@@ -65,7 +85,7 @@
 }
 
 .tab-slide::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -2px;
   left: 0;
@@ -94,15 +114,35 @@
   border-radius: var(--radius-sm);
 }
 
-.skeleton-text { height: 1rem; margin-bottom: 0.5rem; }
-.skeleton-text:last-child { width: 60%; }
-.skeleton-heading { height: 1.5rem; width: 40%; margin-bottom: 0.75rem; }
-.skeleton-avatar { width: 48px; height: 48px; border-radius: 50%; }
-.skeleton-card { height: 120px; border-radius: var(--radius-md); }
+.skeleton-text {
+  height: 1rem;
+  margin-bottom: 0.5rem;
+}
+.skeleton-text:last-child {
+  width: 60%;
+}
+.skeleton-heading {
+  height: 1.5rem;
+  width: 40%;
+  margin-bottom: 0.75rem;
+}
+.skeleton-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+.skeleton-card {
+  height: 120px;
+  border-radius: var(--radius-md);
+}
 
 @keyframes shimmer {
-  0%   { background-position: 100% 0; }
-  100% { background-position: -100% 0; }
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
 }
 
 /* --- Pulse dot (for status indicators) --- */
@@ -116,9 +156,15 @@
 }
 
 @keyframes pulse {
-  0%   { box-shadow: 0 0 0 0 var(--primary-focus-shadow); }
-  70%  { box-shadow: 0 0 0 8px transparent; }
-  100% { box-shadow: 0 0 0 0 transparent; }
+  0% {
+    box-shadow: 0 0 0 0 var(--primary-focus-shadow);
+  }
+  70% {
+    box-shadow: 0 0 0 8px transparent;
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
 }
 
 /* --- Spin (loading icon) --- */
@@ -127,8 +173,12 @@
 }
 
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* --- Counter animation --- */
@@ -142,13 +192,19 @@
 }
 
 @keyframes page-fade-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* --- Respect reduced motion --- */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
