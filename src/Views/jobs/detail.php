@@ -1,5 +1,22 @@
 <?php
-$skills_list = is_array($job['skills'] ?? null) ? $job['skills'] : array_filter(array_map('trim', explode(',', $job['skills'] ?? '')));
+/**
+ * Job Detail
+ * Data: $job, $isBookmarked, $hasApplied, $relatedJobs (see JobController::detail)
+ *
+ * $job['skills'] can be either:
+ *   - An array of arrays with ['name'] key (from Job::getSkills())
+ *   - A comma-separated string (legacy format)
+ */
+$raw_skills = $job['skills'] ?? [];
+
+if (is_array($raw_skills)) {
+    $skills_list = array_map(function ($s) {
+        return is_array($s) ? ($s['name'] ?? '') : (string)$s;
+    }, $raw_skills);
+    $skills_list = array_filter($skills_list, function ($v) { return $v !== ''; });
+} else {
+    $skills_list = array_filter(array_map('trim', explode(',', (string)$raw_skills)));
+}
 ?>
 
 <div class="container" style="padding-top: 1.5rem; padding-bottom: 3rem;">
@@ -18,7 +35,7 @@ $skills_list = is_array($job['skills'] ?? null) ? $job['skills'] : array_filter(
                             <?= strtoupper(substr($job['company_name'] ?? '?', 0, 1)) ?>
                         </div>
                     <?php endif; ?>
-                    <div>
+                    <div class="flex-center">
                         <h2 style="margin: 0 0 0.25rem; font-size: 1rem; color: var(--text-muted);">
                             <?= e($job['company_name'] ?? '') ?>
                         </h2>
@@ -148,7 +165,7 @@ $skills_list = is_array($job['skills'] ?? null) ? $job['skills'] : array_filter(
                 <!-- Action Buttons -->
                 <div class="card fade-in-up" style="margin-bottom: 1rem;">
                     <div class="card-body">
-                        <?php if (!empty($has_applied)): ?>
+                        <?php if (!empty($hasApplied)): ?>
                             <button class="btn btn-secondary btn-lg btn-ripple" style="width: 100%; margin-bottom: 0.75rem;" disabled>
                                 <i class="fas fa-check" style="margin-right: 0.375rem;"></i><?= __('jobs.already_applied') ?>
                             </button>
@@ -165,9 +182,9 @@ $skills_list = is_array($job['skills'] ?? null) ? $job['skills'] : array_filter(
                         <?php if ($current_user && $current_user['type'] == 0): ?>
                             <form action="<?= base_url('jobs/' . (int)$job['id'] . '/bookmark') ?>" method="POST" style="margin: 0;">
                                 <?= csrf_field() ?>
-                                <button type="submit" class="btn <?= !empty($is_bookmarked) ? 'btn-primary' : 'btn-outline-primary' ?> btn-ripple" style="width: 100%;">
-                                    <i class="<?= !empty($is_bookmarked) ? 'fas' : 'far' ?> fa-bookmark" style="margin-right: 0.375rem;"></i>
-                                    <?= !empty($is_bookmarked) ? __('jobs.bookmarked') : __('jobs.bookmark') ?>
+                                <button type="submit" class="btn <?= !empty($isBookmarked) ? 'btn-primary' : 'btn-outline-primary' ?> btn-ripple" style="width: 100%;">
+                                    <i class="<?= !empty($isBookmarked) ? 'fas' : 'far' ?> fa-bookmark" style="margin-right: 0.375rem;"></i>
+                                    <?= !empty($isBookmarked) ? __('jobs.bookmarked') : __('jobs.bookmark') ?>
                                 </button>
                             </form>
                         <?php endif; ?>
@@ -184,16 +201,18 @@ $skills_list = is_array($job['skills'] ?? null) ? $job['skills'] : array_filter(
     </div>
 
     <!-- Related Jobs -->
-    <?php if (!empty($related_jobs)): ?>
+    <?php if (!empty($relatedJobs)): ?>
+    <?php $current_job = $job; // job-card.php renders $job, keep the detail job intact ?>
     <section class="fade-in-up" style="margin-top: 2rem;">
         <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem;"><?= __('jobs.related_jobs') ?></h2>
         <div class="row">
-            <?php foreach (array_slice($related_jobs, 0, 4) as $job): ?>
+            <?php foreach (array_slice($relatedJobs, 0, 4) as $job): ?>
                 <div class="col-md-6 col-lg-3" style="margin-bottom: 1rem;">
                     <?php include __DIR__ . '/../partials/job-card.php'; ?>
                 </div>
             <?php endforeach; ?>
         </div>
     </section>
+    <?php $job = $current_job; ?>
     <?php endif; ?>
 </div>

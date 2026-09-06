@@ -623,7 +623,12 @@ footer .footer-bottom {
 .bg-surface {
   background: var(--bg-surface);
 }
-
+.flex-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 /* --- Responsive --- */
 @media (max-width: 768px) {
   h1 {
