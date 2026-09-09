@@ -46,7 +46,7 @@ class User extends Model
             "SELECT s.id, s.name, sc.name AS category_name
              FROM user_skills us
              JOIN skills s ON s.id = us.skill_id
-             JOIN skill_categories sc ON sc.id = s.category_id
+             LEFT JOIN skill_categories sc ON sc.id = s.category_id
              WHERE us.user_id = :user_id
              ORDER BY sc.name, s.name",
             ['user_id' => $userId]
@@ -66,11 +66,23 @@ class User extends Model
     {
         $this->delete('user_skills', 'user_id = :user_id', ['user_id' => $userId]);
 
+        $skillIds = array_filter(array_map('intval', $skillIds), fn($id) => $id > 0);
+        $skillIds = array_unique($skillIds);
+
+        if (empty($skillIds)) {
+            return;
+        }
+
+        $validRows = $this->queryAll("SELECT id FROM skills");
+        $validIdsMap = array_flip(array_column($validRows, 'id'));
+
         foreach ($skillIds as $skillId) {
-            $this->insert('user_skills', [
-                'user_id'  => $userId,
-                'skill_id' => (int) $skillId,
-            ]);
+            if (isset($validIdsMap[$skillId])) {
+                $this->insert('user_skills', [
+                    'user_id'  => $userId,
+                    'skill_id' => (int) $skillId,
+                ]);
+            }
         }
     }
 

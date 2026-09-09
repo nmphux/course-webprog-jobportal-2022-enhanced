@@ -23,6 +23,7 @@ abstract class TestCase extends PHPUnitTestCase
                 PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
             ]);
+            self::$db->exec('PRAGMA foreign_keys = ON;');
 
             // Create schema
             self::createSchema();
@@ -106,6 +107,11 @@ abstract class TestCase extends PHPUnitTestCase
                 name VARCHAR(100) NOT NULL
             );
 
+            CREATE TABLE IF NOT EXISTS skill_categories (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name VARCHAR(100) NOT NULL
+            );
+
             CREATE TABLE IF NOT EXISTS skills (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 name VARCHAR(100) NOT NULL,
@@ -116,6 +122,13 @@ abstract class TestCase extends PHPUnitTestCase
                 user_id INTEGER NOT NULL,
                 skill_id INTEGER NOT NULL,
                 PRIMARY KEY (user_id, skill_id)
+            );
+
+            
+            CREATE TABLE IF NOT EXISTS job_skills (
+                job_id INTEGER NOT NULL,
+                skill_id INTEGER NOT NULL,
+                PRIMARY KEY (job_id, skill_id)
             );
         ";
 

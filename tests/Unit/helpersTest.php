@@ -12,8 +12,8 @@ class HelpersTest extends TestCase
     public function testEscapeHtml(): void
     {
         $this->assertEquals('&amp;', e('&'));
-        $this->assertEquals('<script>', e('<script>'));
-        $this->assertEquals('"Hello"', e('"Hello"'));
++        $this->assertEquals('&lt;script&gt;', e('<script>'));
++        $this->assertEquals('&quot;Hello&quot;', e('"Hello"'));
         $this->assertEquals('', e(null));
     }
 

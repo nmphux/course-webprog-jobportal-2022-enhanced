@@ -1,9 +1,13 @@
 <?php
 
-define('BASE_PATH', dirname(__DIR__));
+if (!defined('BASE_PATH')) {
+    define('BASE_PATH', dirname(__DIR__));
+}define('BASE_PATH', dirname(__DIR__));
 
-$scriptName = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
-define('BASE_URL', rtrim($scriptName, '/'));
+$scriptName = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''));
+if (!defined('BASE_URL')) {
+    define('BASE_URL', rtrim($scriptName, '/'));
+}
 
 function base_url(string $path = ''): string
 {
@@ -76,7 +80,10 @@ function __(string $key, array $replacements = []): string
 
 function csrf_token(): string
 {
-    return $_SESSION['csrf_token'] ?? '';
+    if (empty($_SESSION['csrf_token'])) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    }
+    return $_SESSION['csrf_token'];
 }
 
 function csrf_field(): string

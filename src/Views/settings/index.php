@@ -139,17 +139,25 @@
                                 <label class="form-label"><?= __('settings.skills') ?></label>
                                 <select name="skills[]" multiple class="form-control" style="height: 200px;">
                                     <?php
-                                    $current_cat = '';
-                                    foreach ($all_skills as $skill):
-                                        if ($skill['category_name'] !== $current_cat):
-                                            if ($current_cat !== '') echo '</optgroup>';
-                                            $current_cat = $skill['category_name'];
+                                    $grouped_skills = [];
+                                    foreach ($all_skills as $skill) {
+                                        if (empty($skill['id']) || !isset($skill['name']) || trim((string) $skill['name']) === '') {
+                                            continue;
+                                        }
+                                        $cat = $skill['category_name'] ?? null;
+                                        if ($cat === null || trim((string) $cat) === '') {
+                                            $cat = 'Uncategorized';
+                                        }
+                                        $grouped_skills[$cat][] = $skill;
+                                    }
+                                    foreach ($grouped_skills as $cat => $skills_in_cat):
                                     ?>
-                                        <optgroup label="<?= e($current_cat) ?>">
-                                    <?php endif; ?>
-                                        <option value="<?= $skill['id'] ?>" <?= in_array((int)$skill['id'], $user_skill_ids) ? 'selected' : '' ?>><?= e($skill['name']) ?></option>
+                                        <optgroup label="<?= e($cat) ?>">
+                                            <?php foreach ($skills_in_cat as $skill): ?>
+                                                <option value="<?= $skill['id'] ?>" <?= in_array((int)$skill['id'], (array)($user_skill_ids ?? [])) ? 'selected' : '' ?>><?= e($skill['name']) ?></option>
+                                            <?php endforeach; ?>
+                                        </optgroup>
                                     <?php endforeach; ?>
-                                    <?php if ($current_cat !== '') echo '</optgroup>'; ?>
                                 </select>
                                 <small class="form-text">Hold Ctrl (Cmd on Mac) to select multiple</small>
                             </div>

@@ -79,5 +79,40 @@ class SettingsTest extends TestCase {
         $maxSize = $config['upload_max_size'] ?? 5 * 1024 * 1024;
         $this->assertEquals(5 * 1024 * 1024, $maxSize, 'Max upload size should be 5MB');
     }
+
+    public function testSkillsDropdownAndSyncing(): void {
+        $skillModel = new \Models\Skill(self::$db);
+        $userModel = new \Models\User(self::$db);
+
+        self::$db->exec("INSERT INTO skill_categories (name) VALUES ('Development')");
+        $catId = (int) self::$db->lastInsertId();
+        self::$db->exec("INSERT INTO skills (name, category_id) VALUES ('PHP', {$catId})");
+        $skillId = (int) self::$db->lastInsertId();
+        self::$db->exec("INSERT INTO skills (name, category_id) VALUES ('Uncategorized Skill', NULL)");
+        $uncatSkillId = (int) self::$db->lastInsertId();
+
+        // Ensure getAll() returns flat skills carrying category data
+        $skills = $skillModel->getAll();
+        $this->assertIsArray($skills);
+        $this->assertNotEmpty($skills);
+        $first = $skills[0];
+        $this->assertArrayHasKey('id', $first);
+        $this->assertArrayHasKey('name', $first);
+        $this->assertArrayHasKey('category_name', $first);
+
+        // Test syncSkills with invalid/empty strings doesn't cause 500 error
+        $user = $this->createUser();
+        $userId = $user['id'];
+
+        $userModel->syncSkills($userId, ['', 0, -1, 'abc']);
+        $userSkills = $userModel->getSkillIds($userId);
+        $this->assertEmpty($userSkills);
+
+        $userModel->syncSkills($userId, ['', $skillId, $uncatSkillId]);
+        $userSkills = $userModel->getSkillIds($userId);
+        $this->assertCount(2, $userSkills);
+        $this->assertContains((string) $skillId, array_map('strval', $userSkills));
+        $this->assertContains((string) $uncatSkillId, array_map('strval', $userSkills));
+    }
 }
 

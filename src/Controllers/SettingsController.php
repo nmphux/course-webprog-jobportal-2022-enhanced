@@ -20,7 +20,7 @@ class SettingsController extends Controller
         $education      = $userModel->getEducation($userId);
         $experience     = $userModel->getExperience($userId);
         $certifications = $userModel->getCertifications($userId);
-        $skills         = $skillModel->getAllGrouped();
+        $skills         = $skillModel->getAll();
         $userSkillIds   = $userModel->getSkillIds($userId);
         $activeTab      = $_GET['tab'] ?? 'account';
 
@@ -167,8 +167,9 @@ class SettingsController extends Controller
         ]);
 
         // Sync skills
-        $skillIds = array_map('intval', $_POST['skills'] ?? []);
-        $userModel->syncSkills($userId, $skillIds);
+        $rawSkills = is_array($_POST['skills'] ?? null) ? $_POST['skills'] : [];
+        $skillIds  = array_filter(array_map('intval', $rawSkills), fn($id) => $id > 0);
+        $userModel->syncSkills($userId, array_values(array_unique($skillIds)));
 
         $this->flash('success', __('settings.profile_updated'));
         $this->redirect('/settings?tab=profile');

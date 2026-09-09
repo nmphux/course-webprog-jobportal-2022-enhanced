@@ -11,7 +11,7 @@ class Skill extends Model
         return $this->queryAll(
             "SELECT s.id, s.name, sc.name AS category_name, s.category_id
              FROM skills s
-             JOIN skill_categories sc ON sc.id = s.category_id
+             LEFT JOIN skill_categories sc ON sc.id = s.category_id
              ORDER BY sc.name, s.name"
         );
     }
@@ -22,7 +22,11 @@ class Skill extends Model
         $grouped = [];
 
         foreach ($skills as $skill) {
-            $grouped[$skill['category_name']][] = $skill;
+            $cat = $skill['category_name'] ?? null;
+            if ($cat === null || trim((string) $cat) === '') {
+                $cat = 'Uncategorized';
+            }
+            $grouped[$cat][] = $skill;
         }
 
         return $grouped;
@@ -45,7 +49,7 @@ class Skill extends Model
         return $this->queryAll(
             "SELECT s.id, s.name, sc.name AS category_name
              FROM skills s
-             JOIN skill_categories sc ON sc.id = s.category_id
+             LEFT JOIN skill_categories sc ON sc.id = s.category_id
              WHERE s.id IN (" . implode(',', $placeholders) . ")
              ORDER BY s.name",
             $params
@@ -57,7 +61,7 @@ class Skill extends Model
         return $this->queryAll(
             "SELECT s.id, s.name, sc.name AS category_name
              FROM skills s
-             JOIN skill_categories sc ON sc.id = s.category_id
+             LEFT JOIN skill_categories sc ON sc.id = s.category_id
              WHERE s.name LIKE :term
              ORDER BY s.name
              LIMIT {$limit}",

@@ -11,6 +11,17 @@ if (!defined('TEST_MODE')) {
     define('TEST_MODE', true);
 }
 
+if (!defined('BASE_URL')) {
+    define('BASE_URL', '');
+}
+
+if (file_exists(__DIR__ . '/TestCase.php')) {
+    require_once __DIR__ . '/TestCase.php';
+    if (!class_exists('TestCase', false) && class_exists('Tests\\TestCase', false)) {
+        class_alias('Tests\\TestCase', 'TestCase');
+    }
+}
+
 // Autoloader (mirrors public/index.php + tests namespace)
 spl_autoload_register(function (string $class) {
     $map = [
