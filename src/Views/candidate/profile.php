@@ -5,30 +5,33 @@
 
     <!-- Analytics Dashboard -->
     <?php if (!empty($applications)): ?>
+    <?php
+    $pending = $reviewed = $interview = $accepted = $rejected = 0;
+    foreach ($applications as $app) {
+        $s = strtolower($app['status'] ?? 'pending');
+        if ($s === 'pending') $pending++;
+        elseif (in_array($s, ['reviewed'])) $reviewed++;
+        elseif (in_array($s, ['shortlisted', 'interview'])) $interview++;
+        elseif ($s === 'accepted') $accepted++;
+        elseif ($s === 'rejected') $rejected++;
+    }
+    ?>
     <div class="stats-grid fade-in-up" style="margin-bottom: 1.5rem;">
         <div class="stat-card stat-card-primary">
             <div class="stat-icon"><i class="fas fa-paper-plane"></i></div>
             <div class="stat-value"><?= count($applications) ?></div>
             <div class="stat-label"><?= __('candidate.total_applied') ?></div>
-        <?php
-        $pending = $reviewed = $interview = $accepted = $rejected = 0;
-        foreach ($applications as $app) {
-            $s = strtolower($app['status'] ?? 'pending');
-            if ($s === 'pending') $pending++;
-            elseif (in_array($s, ['reviewed'])) $reviewed++;
-            elseif (in_array($s, ['shortlisted', 'interview'])) $interview++;
-            elseif ($s === 'accepted') $accepted++;
-            elseif ($s === 'rejected') $rejected++;
-        }
-        ?>
+        </div>
         <div class="stat-card stat-card-warning">
             <div class="stat-icon"><i class="fas fa-clock"></i></div>
             <div class="stat-value"><?= $pending ?></div>
             <div class="stat-label"><?= __('candidate.status_pending') ?></div>
+        </div
         <div class="stat-card stat-card-success">
             <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
             <div class="stat-value"><?= $accepted ?></div>
             <div class="stat-label"><?= __('candidate.accepted') ?></div>
+        </div>
         <div class="stat-card" style="background:var(--info-bg);">
             <div class="stat-icon" style="background:var(--info-bg);color:var(--info);"><i class="fas fa-chart-line"></i></div>
             <div class="stat-value" style="color:var(--info);"><?= $interview + $reviewed ?></div>
@@ -37,6 +40,7 @@
                 <div class="stat-trend up"><i class="fas fa-arrow-up"></i> <?= $interview ?> interviewing</div>
             <?php endif; ?>
         </div>
+    </div>
 
     <!-- Pipeline -->
     <?php if (count($applications) > 0): ?>
@@ -57,6 +61,7 @@
             <span class="step-count"><?= $accepted ?></span>
             <span class="step-label"><?= __('candidate.accepted') ?></span>
         </div>
+    </div>
     <?php endif; ?>
     <?php endif; ?>
 
@@ -79,6 +84,7 @@
                             <th><?= __('candidate.status') ?></th>
                             <th><?= __('candidate.applied_date') ?></th>
                             <th><?= __('candidate.cv') ?></th>
+                            <th><?= __('common.actions') ?></th>
                         </tr>
                     </thead>
                     <tbody style="font-size: 0.875rem">
@@ -121,11 +127,25 @@
                                         <span style="color: var(--text-muted); font-size: 0.8125rem;"><?= __('candidate.no_cv') ?></span>
                                     <?php endif; ?>
                                 </td>
+                                <td>
+                                    <div style="display: flex; gap: 0.375rem; align-items: center;">
+                                        <a href="<?= base_url('candidate/applications/' . (int)$app['id']) ?>" class="btn btn-outline-primary btn-sm" title="<?= __('candidate.view_application') ?>">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="<?= base_url('candidate/edit-application/' . (int)$app['id']) ?>" class="btn btn-outline-primary btn-sm" title="<?= __('candidate.edit_application') ?>">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a href="<?= base_url('candidate/delete-application/' . (int)$app['id']) ?>" class="btn btn-outline-danger btn-sm" onclick="return confirm('<?= __('candidate.confirm_delete_app') ?>')" title="<?= __('candidate.delete_application') ?>">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
+        </div>
     <?php else: ?>
         <div class="empty-state fade-in-up" style="text-align: center; padding: 4rem 2rem;">
             <i class="fas fa-file-alt" style="font-size: 3rem; color: var(--text-muted); margin-bottom: 1rem;"></i>

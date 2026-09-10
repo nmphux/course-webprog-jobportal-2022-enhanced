@@ -218,6 +218,18 @@ return [
     'candidate.no_cv'            => 'Chưa có CV',
     'candidate.ai_match_title'   => 'Độ phù hợp AI',
     'candidate.ai_match_desc'    => 'Điểm phù hợp AI cho đơn ứng tuyển này.',
+    'candidate.application_updated'     => 'Cập nhật đơn ứng tuyển thành công.',
+    'candidate.application_deleted'     => 'Đã xóa đơn ứng tuyển thành công.',
+    'candidate.application_not_found'   => 'Không tìm thấy đơn ứng tuyển.',
+    'candidate.application_detail'      => 'Chi tiết đơn ứng tuyển',
+    'candidate.edit_application'        => 'Chỉnh sửa đơn ứng tuyển',
+    'candidate.delete_application'      => 'Xóa đơn ứng tuyển',
+    'candidate.confirm_delete_app'      => 'Bạn có chắc chắn muốn xóa đơn ứng tuyển này?',
+    'candidate.upload_new_cv'           => 'Tải lên CV mới (PDF)',
+    'candidate.current_cv'              => 'CV hiện tại',
+    'candidate.view_application'        => 'Xem đơn ứng tuyển',
+    'candidate.applicant_name'          => 'Tên người ứng tuyển',
+    'candidate.update_application'      => 'Cập nhật đơn ứng tuyển',
 
     // Company
     'company.about'       => 'Giới thiệu',

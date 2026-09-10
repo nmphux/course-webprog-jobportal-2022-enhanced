@@ -72,7 +72,7 @@ if (is_array($raw_skills)) {
                 <div class="card-body">
                     <h2 style="font-size: 1.125rem; font-weight: 600; margin: 0 0 1rem;"><?= __('jobs.description') ?></h2>
                     <div style="line-height: 1.7; font-size: 0.9375rem;">
-                        <?= $job['description'] ?? '' ?>
+                        <?= e($job['description'] ?? '') ?>
                     </div>
                 </div>
             </div>
@@ -83,7 +83,7 @@ if (is_array($raw_skills)) {
                 <div class="card-body">
                     <h2 style="font-size: 1.125rem; font-weight: 600; margin: 0 0 1rem;"><?= __('jobs.requirements') ?></h2>
                     <div style="line-height: 1.7; font-size: 0.9375rem;">
-                        <?= $job['requirements'] ?>
+                        <?= e($job['requirements'] ?? '') ?>
                     </div>
                 </div>
             </div>

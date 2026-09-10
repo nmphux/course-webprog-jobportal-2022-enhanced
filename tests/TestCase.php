@@ -52,7 +52,7 @@ abstract class TestCase extends PHPUnitTestCase
 
             CREATE TABLE IF NOT EXISTS job_posts (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                employer_id INTEGER NOT NULL,
+                user_id INTEGER NOT NULL,
                 company_id INTEGER DEFAULT NULL,
                 company_name VARCHAR(100) DEFAULT NULL,
                 company_logo VARCHAR(255) DEFAULT NULL,
@@ -70,7 +70,7 @@ abstract class TestCase extends PHPUnitTestCase
                 skills TEXT DEFAULT NULL,
                 status VARCHAR(20) NOT NULL DEFAULT 'published',
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                FOREIGN KEY (employer_id) REFERENCES users(id)
+                FOREIGN KEY (user_id) REFERENCES users(id)
             );
 
             CREATE TABLE IF NOT EXISTS applications (
@@ -173,8 +173,10 @@ abstract class TestCase extends PHPUnitTestCase
      */
     protected function createJob(array $overrides = []): array
     {
+        $userId = $overrides['user_id'] ?? $overrides['employer_id'] ?? 1;
+
         $defaults = [
-            'employer_id'    => 1,
+            'user_id'        => $userId,
             'title'          => 'Test Job Position',
             'description'    => 'This is a test job description.',
             'company_name'   => 'Test Company',
@@ -186,13 +188,15 @@ abstract class TestCase extends PHPUnitTestCase
         ];
 
         $data = array_merge($defaults, $overrides);
+        $data['user_id'] = $userId;
+        unset($data['employer_id']);
 
         $stmt = self::$db->prepare(
-            'INSERT INTO job_posts (employer_id, title, description, company_name, company_city, level, employment_type, salary, status)
-             VALUES (:employer_id, :title, :description, :company_name, :company_city, :level, :employment_type, :salary, :status)'
+            'INSERT INTO job_posts (user_id, title, description, company_name, company_city, level, employment_type, salary, status)
+             VALUES (:user_id, :title, :description, :company_name, :company_city, :level, :employment_type, :salary, :status)'
         );
         $stmt->execute([
-            ':employer_id'     => $data['employer_id'],
+            ':user_id'         => $data['user_id'],
             ':title'           => $data['title'],
             ':description'     => $data['description'],
             ':company_name'    => $data['company_name'],

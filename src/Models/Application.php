@@ -68,9 +68,10 @@ class Application extends Model
     public function findById(int $id): ?array
     {
         return $this->queryOne(
-            "SELECT a.*, jp.user_id AS employer_id, jp.title AS job_title
+            "SELECT a.*, a.user_id AS applicant_id, jp.user_id AS employer_id, jp.title AS job_title,
+                    c.name AS company_name, c.logo AS company_logo
              FROM applications a
-             JOIN job_posts jp ON jp.id = a.job_id
+             LEFT JOIN companies c ON c.id = jp.company_id
              WHERE a.id = :id",
             ['id' => $id]
         );
@@ -85,5 +86,30 @@ class Application extends Model
             ['app_id' => $applicationId, 'employer_id' => $employerId]
         );
         return $count > 0;
+    }
+
+
+    public function isOwnedBy(int $applicationId, int $userId): bool
+    {
+        $count = $this->count(
+            "SELECT COUNT(*) FROM applications WHERE id = :id AND user_id = :user_id",
+            ['id' => $applicationId, 'user_id' => $userId]
+        );
+        return $count > 0;
+    }
+
+    public function isOwnedByCandidate(int $applicationId, int $userId): bool
+    {
+        return $this->isOwnedBy($applicationId, $userId);
+    }
+
+    public function updateApplication(int $id, array $data): int
+    {
+        return $this->update('applications', $data, 'id = :id', ['id' => $id]);
+    }
+
+    public function deleteApplication(int $id, int $userId): int
+    {
+        return $this->delete('applications', 'id = :id AND user_id = :user_id', ['id' => $id, 'user_id' => $userId]);
     }
 }

@@ -13,7 +13,7 @@ class JobTest extends TestCase
     {
         $employer = $this->createUser(['user_type' => 1]);
         $job = $this->createJob([
-            'employer_id'    => $employer['id'],
+            'user_id'        => $employer['id'],
             'title'          => 'Senior PHP Developer',
             'company_name'   => 'Tech Corp',
             'company_city'   => 'Ho Chi Minh',
@@ -31,9 +31,9 @@ class JobTest extends TestCase
     {
         $employer = $this->createUser(['user_type' => 1]);
 
-        $job1 = $this->createJob(['employer_id' => $employer['id'], 'title' => 'Job One']);
-        $job2 = $this->createJob(['employer_id' => $employer['id'], 'title' => 'Job Two']);
-        $job3 = $this->createJob(['employer_id' => $employer['id'], 'title' => 'Job Three']);
+        $job1 = $this->createJob(['user_id' => $employer['id'], 'title' => 'Job One']);
+        $job2 = $this->createJob(['user_id' => $employer['id'], 'title' => 'Job Two']);
+        $job3 = $this->createJob(['user_id' => $employer['id'], 'title' => 'Job Three']);
 
         $this->assertNotEquals($job1['id'], $job2['id']);
         $this->assertNotEquals($job2['id'], $job3['id']);
@@ -44,16 +44,16 @@ class JobTest extends TestCase
         $this->expectException(\PDOException::class);
         $this->expectExceptionMessageMatches('/FOREIGN KEY|constraint|NOT NULL/i');
 
-        // This should fail because employer_id=999 doesn't exist
-        $this->createJob(['employer_id' => 999]);
+        // This should fail because user_id=999 doesn't exist
+        $this->createJob(['user_id' => 999]);
     }
 
     public function testJobWithDraftStatus(): void
     {
         $employer = $this->createUser(['user_type' => 1]);
         $job = $this->createJob([
-            'employer_id' => $employer['id'],
-            'status'      => 'draft',
+            'user_id' => $employer['id'],
+            'status'  => 'draft',
         ]);
 
         $this->assertEquals('draft', $job['status']);
@@ -63,8 +63,8 @@ class JobTest extends TestCase
     {
         $employer = $this->createUser(['user_type' => 1]);
         $job = $this->createJob([
-            'employer_id' => $employer['id'],
-            'status'      => 'draft',
+            'user_id' => $employer['id'],
+            'status'  => 'draft',
         ]);
 
         // Update from draft to published

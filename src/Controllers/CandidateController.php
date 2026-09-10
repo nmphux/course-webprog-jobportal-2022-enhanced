@@ -24,6 +24,133 @@ class CandidateController extends Controller
         ]);
     }
 
+    public function applications(): void
+    {
+        $this->profile();
+    }
+
+    public function viewApplication(array $params): void
+    {
+        $appModel = $this->container->get(Models\Application::class);
+
+        $id = (int) ($params['id'] ?? 0);
+        $application = $appModel->findById($id);
+
+        if (!$application) {
+            http_response_code(404);
+            $this->view('errors/404');
+            return;
+        }
+
+        $applicantId = (int) ($application['applicant_id'] ?? $application['user_id'] ?? 0);
+        $this->requireOwnership($applicantId === (int) $this->user()['user_id']);
+
+        $this->view('candidate/view_application', [
+            'application' => $application,
+        ]);
+    }
+
+    public function editApplicationForm(array $params): void
+    {
+        $appModel = $this->container->get(Models\Application::class);
+
+        $id = (int) ($params['id'] ?? 0);
+        $application = $appModel->findById($id);
+
+        if (!$application) {
+            http_response_code(404);
+            $this->view('errors/404');
+            return;
+        }
+
+        $applicantId = (int) ($application['applicant_id'] ?? $application['user_id'] ?? 0);
+        $this->requireOwnership($applicantId === (int) $this->user()['user_id']);
+
+        $this->view('candidate/edit_application', [
+            'application' => $application,
+        ]);
+    }
+
+    public function editApplication(array $params): void
+    {
+        $appModel          = $this->container->get(Models\Application::class);
+        $fileUploadService = $this->container->get(Services\FileUploadService::class);
+
+        $id = (int) ($params['id'] ?? 0);
+        $application = $appModel->findById($id);
+
+        if (!$application) {
+            http_response_code(404);
+            $this->view('errors/404');
+            return;
+        }
+
+        $applicantId = (int) ($application['applicant_id'] ?? $application['user_id'] ?? 0);
+        $this->requireOwnership($applicantId === (int) $this->user()['user_id']);
+
+        $data = [];
+
+        if (isset($_POST['applicant_name'])) {
+            $data['applicant_name'] = trim($_POST['applicant_name']);
+        }
+
+        if (isset($_POST['cover_letter'])) {
+            $data['cover_letter'] = trim($_POST['cover_letter']);
+        }
+
+        if (isset($_FILES['cv']) && $_FILES['cv']['error'] !== UPLOAD_ERR_NO_FILE) {
+            $uploadResult = $fileUploadService->upload(
+                $_FILES['cv'],
+                'cv',
+                ['application/pdf'],
+                5 * 1024 * 1024
+            );
+
+            if (!$uploadResult['success']) {
+                $this->flash('error', $uploadResult['error']);
+                $this->redirect('/candidate/edit-application/' . $id);
+                return;
+            }
+
+            $data['file_path'] = $uploadResult['path'];
+        }
+
+        if (!empty($data)) {
+            $appModel->updateApplication($id, $data);
+        }
+
+        $this->flash('success', __('candidate.application_updated'));
+        $this->redirect('/candidate/profile');
+    }
+
+    public function updateApplication(array $params): void
+    {
+        $this->editApplication($params);
+    }
+
+    public function deleteApplication(array $params): void
+    {
+        $appModel = $this->container->get(Models\Application::class);
+
+        $id = (int) ($params['id'] ?? 0);
+        $application = $appModel->findById($id);
+
+        if (!$application) {
+            http_response_code(404);
+            $this->view('errors/404');
+            return;
+        }
+
+        $applicantId = (int) ($application['applicant_id'] ?? $application['user_id'] ?? 0);
+        $this->requireOwnership($applicantId === (int) $this->user()['user_id']);
+
+        $userId = (int) $this->user()['user_id'];
+        $appModel->deleteApplication($id, $userId);
+
+        $this->flash('success', __('candidate.application_deleted'));
+        $this->redirect('/candidate/profile');
+    }
+
     public function createCvForm(): void
     {
         $userModel  = $this->container->get(Models\User::class);

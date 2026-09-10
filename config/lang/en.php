@@ -218,6 +218,18 @@ return [
     'candidate.no_cv'            => 'No CV',
     'candidate.ai_match_title'   => 'AI Match',
     'candidate.ai_match_desc'    => 'AI match score for this application.',
+    'candidate.application_updated'     => 'Application updated successfully.',
+    'candidate.application_deleted'     => 'Application deleted successfully.',
+    'candidate.application_not_found'   => 'Application not found.',
+    'candidate.application_detail'      => 'Application Details',
+    'candidate.edit_application'        => 'Edit Application',
+    'candidate.delete_application'      => 'Delete Application',
+    'candidate.confirm_delete_app'      => 'Are you sure you want to delete this application?',
+    'candidate.upload_new_cv'           => 'Upload New CV (PDF)',
+    'candidate.current_cv'              => 'Current CV',
+    'candidate.view_application'        => 'View Application',
+    'candidate.applicant_name'          => 'Applicant Name',
+    'candidate.update_application'      => 'Update Application',
 
     // Company
     'company.about'       => 'About',

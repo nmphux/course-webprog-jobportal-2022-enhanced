@@ -14,7 +14,7 @@ class WorkflowTest extends TestCase
         // 1. Create employer and job
         $employer = $this->createUser(['user_type' => 1]);
         $job = $this->createJob([
-            'employer_id'    => $employer['id'],
+            'user_id'        => $employer['id'],
             'title'          => 'Full Stack Developer',
             'company_name'   => 'StartupXYZ',
             'level'          => 'Middle',
@@ -56,7 +56,7 @@ class WorkflowTest extends TestCase
         $titles = ['Backend Engineer', 'Frontend Engineer', 'DevOps Engineer'];
         foreach ($titles as $title) {
             $jobs[] = $this->createJob([
-                'employer_id'    => $employer['id'],
+                'user_id'        => $employer['id'],
                 'title'          => $title,
                 'company_name'   => 'TechCorp',
                 'status'         => 'published',
@@ -94,7 +94,7 @@ class WorkflowTest extends TestCase
     {
         // 1. Create employer, job, and candidate
         $employer = $this->createUser(['user_type' => 1]);
-        $job = $this->createJob(['employer_id' => $employer['id']]);
+        $job = $this->createJob(['user_id' => $employer['id']]);
         $candidate = $this->createUser(['user_type' => 0]);
 
         // 2. Create bookmark
