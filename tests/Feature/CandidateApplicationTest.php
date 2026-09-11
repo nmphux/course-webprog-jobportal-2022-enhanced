@@ -112,4 +112,4 @@ class CandidateApplicationTest extends TestCase
         $this->assertStringNotContainsString('<img src=x onerror=alert("xss-req")>', $output);
         $this->assertStringContainsString('&lt;img src=x onerror=alert(&quot;xss-req&quot;)&gt;', $output);
     }
-+}
+}

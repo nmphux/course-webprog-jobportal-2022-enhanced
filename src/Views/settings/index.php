@@ -435,21 +435,16 @@
 </div>
 
 <script>
-function selectTheme(name) {
-    setTheme(name);
-    highlightActiveTheme();
-}
-function highlightActiveTheme() {
-    var current = localStorage.getItem('theme') || 'noon';
-    document.querySelectorAll('.theme-card').forEach(function(card) {
-        if (card.getAttribute('data-theme-name') === current) {
-            card.style.borderColor = 'var(--primary)';
-            card.style.boxShadow = '0 0 0 2px var(--primary-focus-shadow)';
-        } else {
-            card.style.borderColor = 'var(--border)';
-            card.style.boxShadow = 'none';
-        }
-    });
-}
-highlightActiveTheme();
+// Theme selection + card highlighting is handled by the shared
+// setTheme()/highlightActiveTheme() helpers defined in theme.js
+// (loaded globally in the layout header). We intentionally avoid
+// redefining those functions here to prevent them from drifting
+// out of sync (e.g. using a different localStorage key), which
+// previously caused the highlighted card to fail to match the
+// active theme after clicking or reloading the page.
+document.addEventListener('DOMContentLoaded', function () {
+    if (typeof highlightActiveTheme === 'function') {
+        highlightActiveTheme();
+    }
+});
 </script>

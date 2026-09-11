@@ -2,7 +2,7 @@
 
 if (!defined('BASE_PATH')) {
     define('BASE_PATH', dirname(__DIR__));
-}define('BASE_PATH', dirname(__DIR__));
+}
 
 $scriptName = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''));
 if (!defined('BASE_URL')) {
